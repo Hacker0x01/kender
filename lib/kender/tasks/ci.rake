@@ -95,6 +95,7 @@ namespace :ci do
         #TODO: invoke on the task did not work. Why?
         system('bundle exec rake parallel:create')
         system('bundle exec rake parallel:prepare')
+        puts "Hooray, I did bundle exec rake parallel:create!"
       end
     else
       puts "no databases tasks found."
