@@ -83,7 +83,7 @@ namespace :ci do
       if !defined?(ParallelTests)
         # Use db:schema:load instead of db:migrate because of this issue
         # https://github.com/rails/rails/issues/19001
-        db_task = if File.exist?('db/schema.rb')
+        db_task = if File.exist?('db/schema.rb') || File.exist?('db/structure.sql')
           'db:schema:load'
         else
           'db:migrate'
@@ -93,9 +93,7 @@ namespace :ci do
         end
       else
         #TODO: invoke on the task did not work. Why?
-        system('bundle exec rake parallel:create')
-        system('bundle exec rake parallel:prepare')
-        puts "Hooray, I did bundle exec rake parallel:create!"
+        system('bundle exec rake parallel:setup')
       end
     else
       puts "no databases tasks found."
